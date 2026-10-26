@@ -8,467 +8,34 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@700&family=Chakra+Petch:wght@400;500;700&display=swap"
     rel="stylesheet">
-  <style>
-    :root {
-      --blue: #e0458b;
-      --red: #d9552b;
-      --navy: #1f7a5e;
-      --grn: #1f7a5e;
-      --txt: #1a1a1a;
-      --ink: #1a1a1a;
-      --mute: #6b5f45;
-      --px: "Chakra Petch", "Sarabun", sans-serif;
-      box-sizing: border-box;
-      padding-top: env(safe-area-inset-top, 0px);
-      padding-bottom: env(safe-area-inset-bottom, 0px)
-    }
-
-    * {
-      box-sizing: border-box
-    }
-
-    html {
-      height: 100%
-    }
-
-    body {
-      margin: 0;
-      min-height: 100%;
-      display: grid;
-      place-items: center;
-      padding: 18px 12px 28px;
-      color: var(--ink);
-      font: 400 18px/1.7 "Chakra Petch", "Sarabun", sans-serif;
-      background: radial-gradient(#ffffff22 1px, transparent 1.5px) 0 0/9px 9px, radial-gradient(#0000001a 1px, transparent 1.5px) 4px 5px/13px 13px, #e0458b
-    }
-
-    .lamp {
-      position: fixed;
-      right: 3vw;
-      bottom: 5vh;
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 30%, #ffe27a, #f2c12e 60%, #d4a017);
-      border: 5px solid #e8b520;
-      opacity: .9;
-      pointer-events: none
-    }
-
-    .pc {
-      width: min(980px, 100%);
-      background: linear-gradient(#f4ead0, #e3d6b2);
-      border-radius: 16px;
-      padding: 22px 22px 16px;
-      box-shadow: 0 20px 50px #4a0f2a88, inset 0 2px 0 #fff9
-    }
-
-    .bezel {
-      background: #e8dcba;
-      border-radius: 22px;
-      padding: 14px;
-      box-shadow: inset 0 3px 8px #0003
-    }
-
-    .screen {
-      position: relative;
-      height: min(600px, 72vh);
-      border-radius: 18px;
-      overflow: hidden;
-      background: radial-gradient(ellipse at 50% 40%, #f6edd5, #e6d9b6 80%);
-      box-shadow: inset 0 0 50px #0003, inset 0 0 0 4px #1a1a1a
-    }
-
-    .screen::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: repeating-linear-gradient(#0000 0 2px, #0000000a 2px 3px);
-      border-radius: 18px
-    }
-
-    .view {
-      position: absolute;
-      inset: 0;
-      overflow-y: auto;
-      padding: 26px 30px
-    }
-
-    .view[hidden] {
-      display: none
-    }
-
-    #start {
-      display: grid;
-      place-items: center;
-      text-align: center
-    }
-
-    #app {
-      background: #efe4c6
-    }
-
-    .logo {
-      font: italic 700 clamp(34px, 8vw, 84px)/1 "Silkscreen", monospace;
-      background: linear-gradient(#ff8fbd, #e0458b 60%, #b02a68);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      filter: drop-shadow(3px 3px 0 #1a1a1a);
-      letter-spacing: .02em
-    }
-
-    .logo small {
-      font: 700 .26em "Chakra Petch", sans-serif;
-      color: #1a1a1a;
-      -webkit-text-fill-color: #1a1a1a;
-      margin-left: 10px
-    }
-
-    .pbtn {
-      font: 500 20px var(--px);
-      color: #fff;
-      background: var(--blue);
-      border: 0;
-      padding: 8px 22px;
-      cursor: pointer;
-      box-shadow: inset 3px 3px 0 #f58bb9, inset -3px -3px 0 #a52a62, 0 0 0 2px #4a0f2a;
-      letter-spacing: .05em
-    }
-
-    .pbtn.red {
-      background: var(--red);
-      box-shadow: inset 3px 3px 0 #f0875f, inset -3px -3px 0 #99361a, 0 0 0 2px #3a1408
-    }
-
-    .pbtn.navy {
-      background: var(--navy);
-      box-shadow: inset 3px 3px 0 #4fa88a, inset -3px -3px 0 #0f4a39, 0 0 0 2px #06231b
-    }
-
-    .pbtn[aria-selected="true"] {
-      filter: brightness(1.2)
-    }
-
-    .pbtn:focus-visible,
-    .ph:focus-within,
-    .doll:focus-visible {
-      outline: 3px solid var(--grn);
-      outline-offset: 3px
-    }
-
-    #start .pbtn {
-      margin-top: 22px;
-      font-size: 26px;
-      padding: 10px 38px
-    }
-
-    .doll {
-      display: block;
-      color: var(--blue);
-      background: none;
-      border: 0;
-      padding: 0;
-      cursor: pointer;
-      margin: 0 auto 6px;
-      touch-action: manipulation
-    }
-
-    .doll svg {
-      display: block;
-      height: 100%;
-      width: auto;
-      overflow: visible
-    }
-
-    .doll.big {
-      height: min(150px, 22vh)
-    }
-
-    .doll.sm {
-      height: 56px;
-      flex: none
-    }
-
-    .hd {
-      transform-box: view-box;
-      transform-origin: 60px 88px;
-      transform: rotate(var(--r, 0deg)) scaleX(var(--s, 1));
-      transition: transform .18s ease-out
-    }
-
-    .hd .bk {
-      display: none
-    }
-
-    .doll.back .fc {
-      display: none
-    }
-
-    .doll.back .bk {
-      display: inline
-    }
-
-    .ttl {
-      display: flex;
-      align-items: center;
-      gap: 12px
-    }
-
-    .top {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 18px
-    }
-
-    .top h1 {
-      font: 700 30px/1.1 var(--px);
-      color: #1a1a1a;
-      text-shadow: 2px 2px 0 #e0458b;
-      margin: 0
-    }
-
-    .top p {
-      margin: 4px 0 0;
-      color: var(--mute)
-    }
-
-    .nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 10px;
-      margin-bottom: 18px
-    }
-
-    .stat {
-      background: #1a1a1a14;
-      border: 2px solid #1a1a1a;
-      padding: 10px 14px
-    }
-
-    .stat span {
-      display: block;
-      color: var(--mute);
-      letter-spacing: .1em;
-      font-size: 14px
-    }
-
-    .stat b {
-      font: 700 24px var(--px);
-      color: #c42d73;
-      outline: 0
-    }
-
-    .stat:nth-child(2n) b {
-      color: #1f7a5e
-    }
-
-    .band {
-      background: repeating-conic-gradient(#d63a80 0 25%, #e0458b 0 50%) 0 0/6px 6px;
-      padding: 8px 14px;
-      font: 700 24px var(--px);
-      color: #fff;
-      text-shadow: 2px 2px 0 #7a1b45;
-      margin: 6px -30px 14px;
-      padding-left: 30px
-    }
-
-    .pane {
-      background: #ffffff8c;
-      border: 2px solid #1a1a1a;
-      padding: 16px 20px;
-      font-size: 18px
-    }
-
-    .pane p {
-      margin: 0 0 10px;
-      outline: 0
-    }
-
-    .video {
-      aspect-ratio: 16/9;
-      background: #1a1a1a;
-      color: #f4ead0;
-      display: grid;
-      place-items: center;
-      border: 3px solid #1a1a1a
-    }
-
-    .video video {
-      width: 100%;
-      height: 100%
-    }
-
-    .video button {
-      background: none;
-      border: 0;
-      color: #f4ead0;
-      font: inherit;
-      cursor: pointer;
-      text-align: center;
-      padding: 20px
-    }
-
-    .video u {
-      color: #ff8fbd
-    }
-
-    .tabs {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 8px
-    }
-
-    pre {
-      margin: 0;
-      background: #1a1a1a;
-      padding: 14px;
-      overflow: auto;
-      max-height: 300px;
-      font: 15px/1.5 ui-monospace, Menlo, Consolas, monospace;
-      color: #a9dbe3;
-      position: relative
-    }
-
-    .team {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 20px;
-      text-align: center
-    }
-
-    .ph {
-      position: relative;
-      display: block;
-      width: 128px;
-      height: 128px;
-      margin: 0 auto 10px;
-      border: 4px solid var(--blue);
-      box-shadow: 4px 4px 0 #4a0f2a;
-      overflow: hidden;
-      background: #ffffff8c url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect x='5' y='3' width='6' height='6' fill='%23e0458b'/%3E%3Crect x='3' y='10' width='10' height='6' fill='%23e0458b'/%3E%3C/svg%3E") center/70% no-repeat
-    }
-
-    .ph img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      image-rendering: auto
-    }
-
-    .ph input {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer
-    }
-
-    .m h3 {
-      margin: 0;
-      font: 700 20px var(--px);
-      color: #1a1a1a;
-      outline: 0
-    }
-
-    .m p {
-      margin: 2px 0 0;
-      color: var(--mute);
-      outline: 0
-    }
-
-    .hint {
-      color: var(--mute);
-      font-size: 16px;
-      margin: 10px 0 0
-    }
-
-    .view::-webkit-scrollbar {
-      width: 12px
-    }
-
-    .view::-webkit-scrollbar-thumb {
-      background: #e0458b
-    }
-
-    .view::-webkit-scrollbar-track {
-      background: #0002
-    }
-
-    .foot {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 14px
-    }
-
-    .tag {
-      font: 700 17px "Silkscreen", monospace;
-      color: #fff;
-      background: #e0458b;
-      padding: 4px 12px;
-      border-radius: 99px;
-      box-shadow: inset 0 2px 4px #0004
-    }
-
-    .led {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #f2c12e;
-      box-shadow: 0 0 12px 4px #f2c12e88
-    }
-
-    @media(max-width:640px) {
-      .view {
-        padding: 18px
-      }
-
-      .band {
-        margin: 6px -18px 14px;
-        padding-left: 18px
-      }
-
-      .lamp {
-        display: none
-      }
-    }
-
-    @media(prefers-reduced-motion:reduce) {
-      .hd {
-        transition: none
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="pixel-art.css">
 </head>
 
 <body>
-  <div class="lamp"></div>
+  <!-- secret trigger: the yellow lamp -->
+  <div class="lamp-wrap">
+    <button class="lamp" id="lamp" type="button" aria-label="ห้ามกด"></button>
+    <span class="lamp-note" aria-hidden="true">ห้ามกด</span>
+  </div>
+
   <main class="pc">
     <div class="bezel">
       <div class="screen">
 
+        <!-- ================= START ================= -->
         <div class="view" id="start">
           <div>
             <div data-doll="big"></div>
-            <div class="logo">GoGoWa<small>v6.7</small></div><button class="pbtn" id="open">Open</button>
+            <div class="logo">GoGoWa<small>v6.7</small></div>
+            <button class="pbtn" id="open" type="button">Open</button>
           </div>
         </div>
 
+        <!-- ================= MAIN ================= -->
         <div class="view" id="app" hidden>
-          <div class="top">
+
+          <header class="top">
             <div class="ttl">
               <div data-doll="sm"></div>
               <div>
@@ -476,15 +43,15 @@
                 <p>Project Physical Computing 2026</p>
               </div>
             </div>
-            <br>
+
             <div class="nav" role="tablist">
-              <button class="pbtn" role="tab" data-t="about" aria-selected="true">โปรเจค</button>
-              <button class="pbtn navy" role="tab" data-t="demo" aria-selected="false">วิดีโอ</button>
-              <button class="pbtn navy" role="tab" data-t="code" aria-selected="false">โค้ด</button>
-              <button class="pbtn navy" role="tab" data-t="team" aria-selected="false">ทีม</button>
-              <button class="pbtn red" id="close">× ปิด</button>
+              <button class="pbtn" type="button" role="tab" data-t="about" aria-selected="true">โปรเจค</button>
+              <button class="pbtn green" type="button" role="tab" data-t="demo" aria-selected="false">วิดีโอ</button>
+              <button class="pbtn green" type="button" role="tab" data-t="code" aria-selected="false">โค้ด</button>
+              <button class="pbtn green" type="button" role="tab" data-t="team" aria-selected="false">ทีม</button>
+              <button class="pbtn orange" type="button" id="close">× ปิด</button>
             </div>
-          </div>
+          </header>
 
           <div class="stats">
             <div class="stat"><span>TYPE</span><b>Game</b></div>
@@ -493,113 +60,172 @@
             <div class="stat"><span>TEAM</span><b>4</b></div>
           </div>
 
-          <section id="about">
+          <!-- ---- tab: project ---- -->
+          <section id="about" role="tabpanel">
             <section>
-              <div class="band">เกี่ยวกับโปรเจค</div>
+              <div class="band">บทคัดย่อ</div>
               <div class="pane">
-                <p>เกม GoGoWa เป็นเกมวัดใจทดสอบปฏิกิริยาตอบสนองสุดตื่นเต้น! ฟังเสียงสัญญาณเตือน
-                  แล้วรีบกดปุ่มเร่งก้าวเดินมุ่งสู่เส้นชัย แต่ระวัง... หากเผลอกดปุ่มแม้แต่วินาทีเดียวหลังเสียงเงียบลง
-                  คุณจะถูกจับฟาวล์ทันที! คุณจะช่างสังเกตและไวพอที่จะพิชิตเกมนี้หรือไม่?</p>
+                <p style="text-indent: 2.5em;">โปรเจค ”โกโกวา“ เป็นการพัฒนาเกมบนระบบไมโครคอนโทรลเลอร์ Arduino
+                  เพื่อแก้ปัญหาสมาธิสั้นและฝึกปฏิกิริยาการยับยั้งชั่งใจ (Inhibitory Control)
+                  จากพฤติกรรมเสพสื่อสั้นในปัจจุบัน
+                  ตัวเกมถูกออกแบบมาเพื่อส่งเสริมพัฒนาการในเด็กและช่วยชะลอความเสื่อมของสมองในผู้สูงอายุ
+                  ผ่านกลไกการฝึกสมาธิและการประสานงานของระบบประสาท
+                </p>
+                <p style="text-indent: 2.5em;">
+                  ระบบทำงานด้วยโครงสร้าง Finite State Machine (FSM) ร่วมกับฟังก์ชันสุ่มเวลา โดยรับ Input
+                  จากการเลือกระดับความยากและการกดปุ่มควบคุม และส่ง Output ผ่านสัญญาณไฟ LED 3 สี เสียงเพลงประกอบ
+                  และหน้าจอ LCD ผู้เล่นจะต้องกดปุ่มก้าวเดินในช่วงสัญญาณไฟเขียวและไฟเหลือง
+                  แล้วหยุดกดปุ่มทันทีเมื่อเข้าสู่สัญญาณไฟแดง โดยหากกดพลาดระบบจะเปลี่ยนเป็น Game Over ทันที
+                  ซึ่งกลไกนี้จะช่วยกระตุ้นให้สมองเกิดการเรียนรู้ในการควบคุมตนเองและการจดจ่อได้อย่างมีประสิทธิภาพ</p>
               </div>
             </section>
-            <br>
-            <section>
-              <div class="band">ที่มา</div>
-              <div class="pane">
-                <p>โปรเจคนี้ต้องการแก้ปัญหาการขาดสมาธิ, การหลุดโฟกัสง่าย และปฏิกิริยาการตอบสนองช้า
-                  ปัญหาเหล่านี้มีความสำคัญเพราะปัจจุบันคนเราชินกับการเสพสื่อสั้น ๆ ทำให้สมาธิสั้นลง
-                  โปรเจคนี้จึงถูกออกแบบให้ผู้เล่นคอยโฟกัสอยู่ตลอดซึ่งจะช่วยฝึกสมาธิได้</p>
-              </div>
-            </section>
-            <br>
+
             <section>
               <div class="band">จุดเด่น</div>
               <div class="pane">
-                <p style="display:flex; align-items:center; gap:6px; margin:0;">
-                  <img src="star.png" alt="" width="24">
-                  <strong style="position:relative;left: 2px;top: 3px;">ระดับความยาก</strong>
+                <p class="feat">
+                  <span class="pix" data-pix="speaker"></span>
+                  <span><strong>ฟังเสียง ไม่ใช่แค่ดูไฟ:</strong> ใช้ความเงียบของเพลงเป็นสัญญาณหยุด
+                    ผู้เล่นต้องฟังและยับยั้งตัวเองทันที เป็นการฝึกสมาธิและการควบคุมตนเองแบบ Go/No-Go</span>
+                </p>
+                <p class="feat">
+                  <span class="pix" data-pix="dice"></span>
+                  <span><strong>จังหวะคาดเดาไม่ได้:</strong> สุ่มความเร็วเพลงและเวลาเงียบในแต่ละรอบ จึงจำจังหวะล่วงหน้าไม่ได้</span>
+                </p>
+                <p class="feat">
+                  <span class="pix" data-pix="levels"></span>
+                  <span><strong>ความยากปรับได้จริง:</strong> 3 ระดับที่เปลี่ยนทั้งระยะทาง ความเร็วเพลง และตัวช่วย (Easy
+                    มีไฟเตือนก่อนเพลงดับ)</span>
+                </p>
+                <p class="feat">
+                  <span class="pix" data-pix="star"></span>
+                  <span><strong>คะแนนตามฝีมือ:</strong> คิดจากความเร็วและระดับความยาก ชวนให้เล่นซ้ำเพื่อทำลายสถิติ</span>
+                </p>
+                <p class="feat">
+                  <span class="pix" data-pix="lcd"></span>
+                  <span><strong>แอนิเมชันบนจอ LCD 16x2:</strong> ตัวละครก้าวเดินทุกครั้งที่กด และตุ๊กตา GoGoWa
+                    หันหัวตามจังหวะเพลง</span>
                 </p>
               </div>
             </section>
-            <br>
+
             <section>
               <div class="band">วิธีเล่น</div>
               <div class="pane">
-                <p>จังหวะก้าวเดิน: เมื่อได้ยินเสียงสัญญาณเพลง ให้รีบกดปุ่มสะสมระยะทางเพื่อเข้าสู่เส้นชัย</p>
-                <p>จังหวะหยุด: ระบบจะสุ่มเวลาหยุดเสียงสัญญาณ ทันทีที่เสียงเงียบลง ผู้เล่นต้องหยุดกดปุ่มทันที</p>
+                <p class="feat">
+                  <span class="pix" data-pix="knob"></span>
+                  <span>1. หมุน Potentiometer เพื่อเลือกระดับความยากที่ต้องการ (Easy, Medium, Hard)</span>
+                </p>
+                <p class="feat">
+                  <span class="pix" data-pix="button"></span>
+                  <span>2. กดคลิกที่ Button เพื่อยืนยันและเข้าสู่หน้าจอเกมหลัก (Main Game)</span>
+                </p>
+                <p class="feat">
+                  <span class="pix" data-pix="note"></span>
+                  <span>3. กด Button ให้เร็วที่สุดเท่าที่จะทำได้ เฉพาะตอนที่เพลงกำลังเล่นอยู่เท่านั้น เพื่อให้ตัวละครบนจอ LCD
+                    เดินไปจนถึงเส้นชัย </span>
+                </p>
+                <p class="feat">
+                  <span class="pix" data-pix="skull"></span>
+                  <span>4.หากเผลอกด Button ในจังหวะที่เพลงหยุด (เพลงดับ) เกมจะ Game Over ทันที </span>
+                </p>
+                <p class="feat">
+                  <span class="pix" data-pix="flag"></span>
+                  <span>5. เมื่อกดปุ่มจนตัวละครเดินถึงเป้าหมายสำเร็จ เกมจะพาไปยังหน้าจอแสดงผลคะแนนของคุณ</span>
+                </p>
               </div>
             </section>
-            <br>
+
             <section>
-              <div class="band">เครื่องมือที่ใช้</div>
+              <div class="band">อุปกรณ์ที่ใช้</div>
               <div class="pane">
-                <p>Arduino board (1)</p>
-                <p>Breadboard (1)</p>
-                <p>LCD 16x2 (1)</p>
-                <p>Switch (2)</p>
-                <p>Potentiometer (1)</p>
-                <p>LED (2)</p>
+                <ul class="tools">
+                  <li class="tool"><span class="tool-ico" data-sprite="arduino"></span><span class="tool-name">Arduino
+                      board</span><span class="tool-qty">×1</span></li>
+                  <li class="tool"><span class="tool-ico" data-sprite="breadboard"></span><span
+                      class="tool-name">Breadboard</span><span class="tool-qty">×1</span></li>
+                  <li class="tool"><span class="tool-ico" data-sprite="lcd"></span><span class="tool-name">LCD
+                      16x2</span><span class="tool-qty">×1</span></li>
+                  <li class="tool"><span class="tool-ico" data-sprite="switch"></span><span
+                      class="tool-name">Switch</span><span class="tool-qty">×2</span></li>
+                  <li class="tool"><span class="tool-ico" data-sprite="pot"></span><span
+                      class="tool-name">Potentiometer</span><span class="tool-qty">×1</span></li>
+                  <li class="tool"><span class="tool-ico" data-sprite="rgbled"></span><span class="tool-name">RGB
+                      LED</span><span class="tool-qty">×1</span></li>
+                </ul>
               </div>
             </section>
           </section>
 
-          <section id="demo" hidden>
+          <!-- ---- tab: video ---- -->
+          <section id="demo" role="tabpanel" hidden>
             <div class="band">คลิปแสดงชิ้นงาน</div>
             <div class="video" id="vbox"><span>คลิปแสดงชิ้นงานจะแสดงที่นี่</span></div>
           </section>
 
-          <section id="code" hidden>
+          <!-- ---- tab: code ---- -->
+          <section id="code" role="tabpanel" hidden>
             <div class="band">Source Code</div>
             <div class="tabs" id="ctabs"></div>
             <pre tabindex="0"><code id="cd"></code></pre>
-            <p class="hint"><button class="pbtn" id="copy" style="font-size:16px;padding:4px 14px">คัดลอก</button>
-              ตัวอย่างโค้ดจากโปรเจค</p>
+            <p class="hint">
+              <button class="pbtn small" id="copy" type="button">คัดลอก</button>
+              ตัวอย่างโค้ดจากโปรเจค
+            </p>
           </section>
 
-          <section id="team" hidden>
+          <!-- ---- tab: team ---- -->
+          <section id="team" role="tabpanel" hidden>
             <div class="band">ผู้จัดทำ</div>
             <div class="team" id="tm"></div>
           </section>
-        </div>
 
+        </div>
       </div>
     </div>
-    <div class="foot"><span class="tag">GoGoWa</span><span class="led"></span></div>
-  </main>
-  <script>
 
-    var DOLL = '<svg viewBox="0 0 24 21" aria-hidden="true" shape-rendering="crispEdges" fill="currentColor"><path class="hF" d="M8 0h8v1h-8zM6 1h12v1h-12zM4 2h16v1h-16zM3 3h18v1h-18zM2 4h16v1h-16zM19 4h3v1h-3zM2 5h15v1h-15zM18 5h1v1h-1zM20 5h2v1h-2zM2 6h16v1h-16zM19 6h3v1h-3zM2 7h20v1h-20zM2 8h5v1h-5zM8 8h2v1h-2zM11 8h4v1h-4zM16 8h2v1h-2zM19 8h3v1h-3zM2 9h4v1h-4zM8 9h1v1h-1zM11 9h4v1h-4zM17 9h1v1h-1zM19 9h3v1h-3zM2 10h3v1h-3zM19 10h3v1h-3zM2 11h3v1h-3zM6 11h3v1h-3zM15 11h3v1h-3zM19 11h3v1h-3zM2 12h3v1h-3zM7 12h2v1h-2zM15 12h2v1h-2zM19 12h3v1h-3zM2 13h3v1h-3zM7 13h1v1h-1zM16 13h1v1h-1zM19 13h3v1h-3zM1 14h4v1h-4zM6 14h1v1h-1zM17 14h1v1h-1zM19 14h4v1h-4zM1 15h4v1h-4zM11 15h2v1h-2zM19 15h4v1h-4zM1 16h6v1h-6zM17 16h6v1h-6zM1 17h4v1h-4zM7 17h10v1h-10zM19 17h4v1h-4zM1 18h3v1h-3zM20 18h3v1h-3zM2 19h2v1h-2zM20 19h2v1h-2zM3 20h1v1h-1zM20 20h1v1h-1z"/><path class="hB" d="M8 0h8v1h-8zM6 1h12v1h-12zM4 2h7v1h-7zM12 2h8v1h-8zM3 3h8v1h-8zM12 3h9v1h-9zM2 4h9v1h-9zM12 4h6v1h-6zM19 4h3v1h-3zM2 5h9v1h-9zM12 5h5v1h-5zM18 5h1v1h-1zM20 5h2v1h-2zM2 6h9v1h-9zM12 6h6v1h-6zM19 6h3v1h-3zM2 7h9v1h-9zM12 7h10v1h-10zM2 8h9v1h-9zM12 8h10v1h-10zM2 9h9v1h-9zM12 9h10v1h-10zM2 10h9v1h-9zM12 10h10v1h-10zM2 11h9v1h-9zM12 11h10v1h-10zM2 12h9v1h-9zM12 12h10v1h-10zM2 13h9v1h-9zM12 13h10v1h-10zM1 14h22v1h-22zM1 15h22v1h-22zM1 16h22v1h-22zM1 17h4v1h-4zM7 17h10v1h-10zM19 17h4v1h-4zM1 18h3v1h-3zM20 18h3v1h-3zM2 19h2v1h-2zM20 19h2v1h-2zM3 20h1v1h-1zM20 20h1v1h-1z" style="display:none"/></svg>';
-    var dolls = [], ST = { base: 0, cur: 0, last: 0 };
-    [].forEach.call(document.querySelectorAll('[data-doll]'), function (h) {
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'doll ' + h.dataset.doll; b.setAttribute('aria-label', 'ยองฮี: คลิกเพื่อหันหัว'); b.innerHTML = DOLL; h.replaceWith(b);
-      dolls.push({ el: b, svg: b.firstChild, F: b.querySelector('.hF'), B: b.querySelector('.hB') });
-      b.onclick = function () { ST.base += 180; ST.last = Date.now() }
-    });
-    function tickDoll() {
-      ST.cur += (ST.base - ST.cur) * .14;
-      var c = Math.cos(ST.cur * Math.PI / 180), sx = Math.max(Math.abs(c), .06);
-      dolls.forEach(function (d) { d.F.style.display = c > 0 ? '' : 'none'; d.B.style.display = c > 0 ? 'none' : ''; d.svg.style.transform = 'scaleX(' + sx + ')' });
-      requestAnimationFrame(tickDoll)
-    }
-    if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) setInterval(function () { if (Date.now() - ST.last > 5000) { ST.base += 180; ST.last = Date.now() - 2500 } }, 6000);
-    tickDoll();
-    var $ = function (s) { return document.querySelector(s) };
-    $('#open').onclick = function () { $('#start').hidden = true; $('#app').hidden = false };
-    $('#close').onclick = function () { $('#app').hidden = true; $('#start').hidden = false };
-    var tabs = document.querySelectorAll('[data-t]');
-    [].forEach.call(tabs, function (b) { b.onclick = function () { [].forEach.call(tabs, function (x) { var on = x === b; x.setAttribute('aria-selected', on); x.classList.toggle('navy', !on); $('#' + x.dataset.t).hidden = !on }); $('#app').scrollTop = 0 } });
-    var files = {
-      "index.html": '<canvas id="game" width="800" height="450"></canvas>\n<script src="game.js"><\/script>',
-      "game.js": 'const ctx = document.getElementById("game").getContext("2d");\nlet studio = { cash: 15000, morale: 80, week: 1 };\n\nfunction nextWeek() {\n  studio.week += 1;\n  studio.morale -= 5;\n}\n\nfunction draw() {\n  ctx.clearRect(0, 0, 800, 450);\n  ctx.fillStyle = "#39ff88";\n  ctx.fillText("Week " + studio.week, 20, 30);\n  requestAnimationFrame(draw);\n}\ndraw();',
-      "style.css": 'body { background: #111c1b; color: #d9f2e6; }\ncanvas { border: 4px solid #2a6df0; }'
-    };
-    var cur = '';
-    Object.keys(files).forEach(function (n, i) { var b = document.createElement('button'); b.className = 'pbtn navy'; b.textContent = n; b.setAttribute('aria-selected', false); b.onclick = function () { show(n) }; $('#ctabs').appendChild(b); if (!i) show(n) });
-    function show(n) { cur = n; $('#cd').textContent = files[n];[].forEach.call($('#ctabs').children, function (b) { var on = b.textContent === n; b.setAttribute('aria-selected', on); b.classList.toggle('navy', !on) }) }
-    $('#copy').onclick = function (e) { var t = e.target; try { navigator.clipboard.writeText(files[cur]).then(function () { t.textContent = 'แล้ว!' }) } catch (x) { t.textContent = 'ไม่ได้' } setTimeout(function () { t.textContent = 'คัดลอก' }, 1400) };
-    var members = [{ n: 'ชื่อ–นามสกุล 1', r: 'หน้าที่', img: '' }, { n: 'ชื่อ–นามสกุล 2', r: 'หน้าที่', img: '' }, { n: 'ชื่อ–นามสกุล 3', r: 'หน้าที่', img: '' }, { n: 'ชื่อ–นามสกุล 4', r: 'หน้าที่', img: '' }];
-    members.forEach(function (m) { var d = document.createElement('div'); d.className = 'm'; var p = document.createElement('div'); p.className = 'ph'; if (m.img) { var im = document.createElement('img'); im.src = m.img; im.alt = m.n; p.appendChild(im) } var h = document.createElement('h3'); h.textContent = m.n; var r = document.createElement('p'); r.textContent = m.r; d.append(p, h, r); $('#tm').appendChild(d) });
-  </script>
+    <div class="foot">
+      <span class="tag">GoGoWa</span>
+      <div class="tv-btns">
+        <a class="tv-btn" id="btnPoster" target="_blank" rel="noopener">POSTER</a>
+        <a class="tv-btn" id="btnGithub" target="_blank" rel="noopener">GITHUB</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- jump-scare overlay (built and driven by initScare in script.js) -->
+  <div class="scare" id="scare" hidden aria-hidden="true">
+    <div class="scare-dark">
+      <div class="scare-glow"></div>
+      <div class="scare-lunge">
+        <div class="scare-creep">
+          <div class="scare-sprite" id="scareScary"></div>
+        </div>
+      </div>
+      <div class="scare-noise"></div>
+    </div>
+
+    <div class="scare-bright">
+      <span class="spark" style="--x:18%;--y:22%;--d:0s"></span>
+      <span class="spark" style="--x:80%;--y:18%;--d:.3s;--c:var(--pink)"></span>
+      <span class="spark" style="--x:30%;--y:70%;--d:.6s;--c:var(--green)"></span>
+      <span class="spark" style="--x:72%;--y:64%;--d:.15s"></span>
+      <span class="spark" style="--x:50%;--y:12%;--d:.45s;--c:var(--pink)"></span>
+      <span class="spark" style="--x:10%;--y:50%;--d:.75s;--c:var(--green)"></span>
+      <span class="spark" style="--x:90%;--y:44%;--d:.9s"></span>
+      <span class="heart" style="--x:34%;--d:0s">♥</span>
+      <span class="heart" style="--x:62%;--d:.9s">♥</span>
+      <span class="heart" style="--x:48%;--d:1.7s">♥</span>
+      <div class="scare-cute" id="scareCute"></div>
+      <p class="scare-text">ล้อเล่นน้า~ ♥</p>
+    </div>
+
+    <div class="scare-flash"></div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="tools.js"></script>
+  <script src="pixel-art.js"></script>
 </body>
 
 </html>

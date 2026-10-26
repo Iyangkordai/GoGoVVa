@@ -1,0 +1,38 @@
+/* pixel-art.css — กรอบภาพประกอบ pixel ในหัวข้อ จุดเด่น / วิธีเล่น */
+.feat {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.feat > span:last-child { flex: 1; min-width: 0; }
+
+.pix {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  background: #fffbe8;
+  border: 3px solid #1b1b2f;
+  box-shadow: 3px 3px 0 #1b1b2f;
+}
+.pix svg {
+  /* ทุกภาพใช้ขนาด pixel เท่ากัน ภาพเล็กก็ดูเล็ก ไม่โดนยืดเบลอ */
+  width: calc(var(--cols) * 3.6px);
+  max-width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  transition: transform .15s steps(2);
+}
+/* ขยับเป็นจังหวะ 2 เฟรมเมื่อชี้/แตะ — เฉพาะตอนผู้ใช้โต้ตอบ */
+.feat:hover .pix svg { transform: translateY(-3px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pix svg { transition: none; }
+  .feat:hover .pix svg { transform: none; }
+}
+@media (max-width: 480px) {
+  .feat { gap: 10px; }
+  .pix { width: 52px; height: 52px; }
+  .pix svg { width: calc(var(--cols) * 2.8px); }
+}
