@@ -1,7 +1,8 @@
 # Physical-Computing-Project-2026-IT-KMITL
 
-## ชื่อโปรเจค : 
-## จุดประสงค์ :
+## GoGoWa
+## Abstract
+
 
 ## สมาชิก :
 - 68070202 นางสาวอภิชชยา กุลสุวรรณ
