@@ -79,10 +79,10 @@
 
   // Team tab  (img = image URL, leave '' for the placeholder)
   var MEMBERS = [
-    { name: 'ชื่อ–นามสกุล 1', role: 'หน้าที่', img: '' },
-    { name: 'ชื่อ–นามสกุล 2', role: 'หน้าที่', img: '' },
-    { name: 'ชื่อ–นามสกุล 3', role: 'หน้าที่', img: '' },
-    { name: 'ชื่อ–นามสกุล 4', role: 'หน้าที่', img: '' }
+    { studentID: '68070202', name: ' อภิชชยา กุลสุวรรณ', img: 'Media/ไอตูนเป็นplayer.png' },
+    { studentID: '68070194', name: ' สุวรรณีย์ ลิ้มช่วยเจริญ', img: 'Media/ไอไหมเป็นplayer.png' },
+    { studentID: '68070189', name: 'สุขภิชญา คะเนเร็ว', img: 'Media/ชั้นเป็นplayer.png' },
+    { studentID: '68070197 ', name: 'อณัญญา ยงดา', img: 'Media/ไอฟงเป็นplayer.png' }
   ];
 
   // Footer buttons  (leave '' = button is greyed out and does nothing)
@@ -270,7 +270,7 @@
   /* ==========================================================
      TEAM TAB
      ========================================================== */
-  function initTeam() {
+function initTeam() {
     MEMBERS.forEach(function (member) {
       var card = document.createElement('div');
       card.className = 'm';
@@ -284,13 +284,13 @@
         photo.appendChild(img);
       }
 
-      var name = document.createElement('h3');
+      var studentID = document.createElement('h3'); // แสดง รหัสนักศึกษา เป็นหัวข้อหลัก (ตัวหนา)
+      studentID.textContent = member.studentID;
+
+      var name = document.createElement('p');       // แสดง ชื่อ–นามสกุล เป็นข้อความบรรทัดถัดมา
       name.textContent = member.name;
 
-      var role = document.createElement('p');
-      role.textContent = member.role;
-
-      card.append(photo, name, role);
+      card.append(photo, studentID, name);          // <-- สลับเอา studentID ขึ้นก่อน name ตรงนี้ครับ
       $('#tm').appendChild(card);
     });
   }

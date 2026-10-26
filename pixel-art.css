@@ -36,3 +36,5 @@
   .pix { width: 52px; height: 52px; }
   .pix svg { width: calc(var(--cols) * 2.8px); }
 }
+
+

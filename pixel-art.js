@@ -145,6 +145,48 @@
       '.KS.........',
       'KSSSK.......',
       'KKKKK.......'
+    ],
+    // เพิ่มเข้าไปในตัวแปร S ด้านในไฟล์ pixel-art.js
+    // Easy (พิกเซลรูปดาว/เหรียญ 1 ดวง สีเขียว)
+    easy: [
+      '.....K.....',
+      '....KGK....',
+      '...KGGGK...',
+      'KKKKGGGKKKK',
+      'KGGGGGGGGGK',
+      '.KGGWGGGGK.',
+      '..KGGGGGK..',
+      '..KGGGGGK..',
+      '.KGGGKGGGK.',
+      '.KGGK.KGGK.',
+      '.KKK...KKK.'
+    ],
+    // Medium (พิกเซลรูปดาว/เหรียญ 2 ดวง สีเหลือง)
+    medium: [
+      '.....K.....',
+      '....KYK....',
+      '...KYYYK...',
+      'KKKKYYYKKKK',
+      'KYYYYYYYYYK',
+      '.KYYWYYYYK.',
+      '..KYYYYYK..',
+      '..KYYYYYK..',
+      '.KYYYKYYYK.',
+      '.KYYK.KYYK.',
+      '.KKK...KKK.'
+    ],
+    // Hard (พิกเซลรูปหัวกะโหลก/ไฟ สีแดง)
+    hard: [
+      '...KKKKK...',
+      '..KRRRRRK..',
+      '.KRRRRRRRK.',
+      '.KRRRRRRRK.',
+      '.KRKKRKKRK.',
+      '.KRKKRKKRK.',
+      '.KRRRKRRRK.',
+      '..KRRRRRK..',
+      '..KRKRKRK..',
+      '...KKKKK...'
     ]
   };
 
