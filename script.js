@@ -87,7 +87,7 @@
 
   // Footer buttons  (leave '' = button is greyed out and does nothing)
    var LINKS = {
-    poster: 'https://drive.google.com/file/d/1FDtFLunt6TRcrfwziVH90Hby6OqBJ0Nz/view',
+    poster: 'https://drive.google.com/file/d/1GIYVubwn0wdCZ0SabhS_sXen-q7eD6p4/view',
     github: 'https://github.com/Iyangkordai/GoGoVVa'
   };
 
